@@ -4,6 +4,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const pkg = require('./package.json')
 
+const { VueLoaderPlugin } = require('vue-loader');
+
 module.exports = {
 	entry: './src/js/index.js',
   	output: {
@@ -17,7 +19,8 @@ module.exports = {
 			title: pkg.name,
 			template: './src/index.html',
 			filename: 'index.html'
-		})
+		}),
+		new VueLoaderPlugin()
 	],
   	module: {
 		rules: [{
@@ -25,7 +28,8 @@ module.exports = {
             use: [
                 "style-loader",
                 "css-loader",
-                "sass-loader"
+                "sass-loader",
+								"vue-style-loader"
             ]
         },
         {
@@ -35,6 +39,12 @@ module.exports = {
 		  		loader: 'babel-loader',
 			}
 	  	},
+			{
+				test: /\.vue$/,
+				use: {
+					loader: 'vue-loader'
+				}
+			},
 		 {
 			test: /\.(ico)$/,
 			use: {
