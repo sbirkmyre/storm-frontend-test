@@ -1,0 +1,62 @@
+
+h1 {
+  margin: 0
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1em;
+
+  border-top: 4px black solid;
+
+  button {
+    font-size: 16px;
+
+    padding: 0.5em;
+
+    border: none;
+    box-shadow: 0px 0px 3px grey;
+    border-radius: 20px;
+  }
+}
+
+.task-list {
+  padding-bottom: 1em;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+
+  padding: 0.5em;
+  margin-bottom: 3px;
+
+  border-left: 3px solid;
+
+  :last-child {
+    margin-bottom: 0;
+  }
+
+  input[type="checkbox"] {
+    font-size: 16px;
+    margin: 0 0.5em;
+  }
+
+  .high-priority {
+    background-color: #FAEAEA;
+    border-color: #FDB0B6;
+  }
+
+  .medium-priority {
+    background-color: #FAF4DC;
+    border-color: #F8E8AC;
+  }
+
+  .low-priority {
+    background-color: #EBF6FC;
+    border-color: #B6E6F2;
+  }
+}
