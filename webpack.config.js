@@ -12,6 +12,12 @@ module.exports = {
 		filename: 'app.js',
 		path: path.resolve(__dirname, './build')
   	},
+		resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+        },
+        extensions: ['*', '.js', '.vue', '.json']
+			},
   	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new CleanWebpackPlugin(['./build']),

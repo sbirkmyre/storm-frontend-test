@@ -1,10 +1,22 @@
 <template>
-  <div>
-    <h1>Hello from Vue and Webpack.</h1?>
+  <div class="app">
+    <div class="main">
+        <task-list :tasks="appData.tasks"></task-list>
+    </div>
   </div>
 </template>
+
 <script>
+	import TaskList from './taskList.vue';
   export default {
-    name: "Main"
+    name: "Main",
+		data() {
+      return {
+        appData: this.$root.appData
+      }
+    },
+    components: {
+			'task-list': TaskList
+		}
   };
 </script>
