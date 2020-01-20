@@ -34,8 +34,7 @@ module.exports = {
             use: [
                 "style-loader",
                 "css-loader",
-                "sass-loader",
-								"vue-style-loader"
+                "sass-loader"
             ]
         },
         {

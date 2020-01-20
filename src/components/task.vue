@@ -1,5 +1,8 @@
 <template>
-  <div class="task">
+  <div class="task"
+    :class="{ 'high-priority': task.importance === 0,
+              'medium-priority': task.importance === 1,
+              'low-priority': task.importance === 2 }">
     <input type="checkbox">
     {{ task.title }}
   </div>

@@ -36,7 +36,7 @@ h1 {
 
   border-left: 3px solid;
 
-  :last-child {
+  &:last-child {
     margin-bottom: 0;
   }
 
@@ -45,17 +45,17 @@ h1 {
     margin: 0 0.5em;
   }
 
-  .high-priority {
+  &.high-priority {
     background-color: #FAEAEA;
     border-color: #FDB0B6;
   }
 
-  .medium-priority {
+  &.medium-priority {
     background-color: #FAF4DC;
     border-color: #F8E8AC;
   }
 
-  .low-priority {
+  &.low-priority {
     background-color: #EBF6FC;
     border-color: #B6E6F2;
   }
