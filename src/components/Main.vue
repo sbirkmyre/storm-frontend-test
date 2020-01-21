@@ -2,7 +2,17 @@
   <div class="app">
     <my-header @viewtoggled="viewtoggled"></my-header>
     <div class="main">
-        <new-task-form @canceladd="canceladd" @updatetasklist="updatetasklist" v-if="(this.view === 'add-task')"></new-task-form>
+        <new-task-form
+          v-if="(this.view === 'add-task')"
+          @discardtask="discardtask"
+          @updatetasklist="updatetasklist">
+        </new-task-form>
+        <b-alert
+          :show="dismissCountDown"
+          dismissible
+          @dismissed="dismissCountDown=0"
+          @dismiss-count-down="countDownChanged"
+          variant="success">{{ alertMessage }}</b-alert>
         <task-list :tasks="appData.tasks" @updatetasklist="updatetasklist"></task-list>
     </div>
   </div>
@@ -19,14 +29,20 @@
 		data() {
       return {
         appData: this.$root.appData,
+        alertMessage: '',
+        alertVariant: '',
+        dismissSecs: 5,
+        dismissCountDown: 0,
         view: this.$root.view
       }
     },
     methods: {
-      updatetasklist() {
+      updatetasklist(message) {
         axios.get('http://localhost:4000/api/task')
           .then((response) => {
             this.appData.tasks = response.data;
+            this.alertMessage = message;
+            this.dismissCountDown = 5;
           })
           .catch((error) => {
             console.log("Error: " + error);
@@ -37,10 +53,16 @@
           this.view = "add-task";
         }
       },
-      canceladd() {
+      discardtask() {
         if(this.view === "add-task") {
           this.view = "default";
         }
+      },
+      countDownChanged(dismissCountDown) {
+        this.dismissCountDown = dismissCountDown
+      },
+      showAlert() {
+        this.dismissCountDown = this.dismissSecs
       }
     },
     components: {

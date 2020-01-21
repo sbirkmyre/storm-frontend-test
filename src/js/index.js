@@ -1,7 +1,10 @@
 import Vue from 'vue';
+import { BootstrapVue } from 'bootstrap-vue';
 import Main from '../components/Main.vue';
 import axios from 'axios';
 import '../css/index.scss';
+
+Vue.use(BootstrapVue);
 
 new Vue({
   render: (createEl) => createEl(Main),

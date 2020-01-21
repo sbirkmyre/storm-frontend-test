@@ -3,7 +3,7 @@
     <h1>Todo list</h1>
     <button
       @click="toggleView">
-        + Add item
+        + Add task
     </button>
   </div>
 </template>
