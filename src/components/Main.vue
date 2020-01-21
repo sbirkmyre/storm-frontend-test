@@ -3,7 +3,7 @@
     <my-header @viewtoggled="viewtoggled"></my-header>
     <div class="main">
         <new-task-form @canceladd="canceladd" @updatetasklist="updatetasklist" v-if="(this.view === 'add-task')"></new-task-form>
-        <task-list :tasks="appData.tasks"></task-list>
+        <task-list :tasks="appData.tasks" @updatetasklist="updatetasklist"></task-list>
     </div>
   </div>
 </template>

@@ -52,6 +52,10 @@ button {
 
   border-left: 3px solid;
 
+  button {
+    margin-left: auto;
+  }
+
   &:last-child {
     margin-bottom: 0;
   }
