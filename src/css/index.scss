@@ -1,12 +1,31 @@
 
-html {
+html, input, select, button {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
 }
 
-h1 {
+h1, h2 {
   margin: 0;
   font-weight: 300;
+}
+
+p {
+  margin: 0;
+  padding: 1rem;
+}
+
+input, select {
+  font-size: 16px;
+}
+
+button {
+  font-size: 16px;
+
+  padding: 0.5em;
+
+  border: none;
+  box-shadow: 0px 0px 3px grey;
+  border-radius: 20px;
 }
 
 .header {
@@ -17,20 +36,9 @@ h1 {
   padding: 1em;
 
   border-top: 4px black solid;
-
-  button {
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    font-weight: 300;
-
-    padding: 0.5em;
-
-    border: none;
-    box-shadow: 0px 0px 3px grey;
-    border-radius: 20px;
-  }
 }
 
+// Task list and it's tasks
 .task-list {
   padding-bottom: 1em;
 }
@@ -49,7 +57,6 @@ h1 {
   }
 
   input[type="checkbox"] {
-    font-size: 16px;
     margin: 0 0.5em;
   }
 
@@ -66,5 +73,52 @@ h1 {
   &.low-priority {
     background-color: #EBF6FC;
     border-color: #B6E6F2;
+  }
+}
+
+// New task form
+.new-task-form {
+  padding: 1em;
+  margin-bottom: 3px;
+
+  background-color: #EBFCEB;
+  border-left: 3px solid #B6F2B7;
+
+  .form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1em 0 0.5em;
+
+    .form-group {
+      display: flex;
+      align-items: center;
+
+      label {
+        padding-right: 1em;
+      }
+    }
+
+    .form-action {
+
+      button {
+
+        &:first-child {
+          margin-right: 0.5em;
+        }
+      }
+    }
+  }
+
+  .form-errors {
+
+    p {
+      padding: 0.5em 0 0.5em;
+    }
+
+    ul {
+      margin: 0;
+    }
   }
 }

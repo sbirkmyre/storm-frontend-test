@@ -9,18 +9,17 @@ new Vue({
     return {
       appData: {
         tasks: {}
-      }
+      },
+      view: "default"
     }
   },
   created () {
     axios.get('http://localhost:4000/api/task')
       .then((response) => {
         this.appData.tasks = response.data;
-        console.log('Data successfully loaded');
       })
       .catch((error) => {
-        console.log('ERROR: Data load failed');
-        console.log(error);
+        console.log("Error: " + error);
       });
     }
 }).$mount('#app');
