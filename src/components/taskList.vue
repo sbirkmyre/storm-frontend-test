@@ -9,7 +9,6 @@
   export default {
     name: "TaskList",
     props: {
-      componentKey: '',
       tasks: {}
     },
     components: {

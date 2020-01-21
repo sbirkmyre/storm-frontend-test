@@ -58,7 +58,8 @@
         if((this.newTask.title !== '') && (this.newTask.importance !== '')){
           axios.post('http://localhost:4000/api/task', {'title':this.newTask.title, 'importance':this.newTask.importance})
             .then((response) => {
-              this.$emit('forcererender');
+              this.$emit('updatetasklist');
+              this.$emit('canceladd');
             })
             .catch((error) => {
               console.log("Error: " + error);
