@@ -3,13 +3,16 @@
     :class="{ 'high-priority': task.importance === 0,
               'medium-priority': task.importance === 1,
               'low-priority': task.importance === 2 }">
-    <input type="checkbox"
-      v-model="task.isDone"
-      true-value="true"
-			false-value="false"
-      @click="taskIsDoneStatusChange"
-      @keyup.enter="taskIsDoneStatusChange">
-    {{ task.title }}
+    <label for="isDone">
+      <input type="checkbox"
+        name="isDone"
+        v-model="task.isDone"
+        true-value="true"
+  			false-value="false"
+        @click="taskIsDoneStatusChange"
+        @keyup.enter="taskIsDoneStatusChange">
+      {{ task.title }}
+    </label>
     <button @click="showDeleteModal">
       Delete
     </button>
