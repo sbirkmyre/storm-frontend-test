@@ -58,6 +58,8 @@ button {
 
 // Task list and it's tasks
 .task-list {
+  width: 100%;
+
   padding-bottom: 1em;
 }
 
@@ -140,8 +142,13 @@ button {
   }
 }
 
-// Alerts
+// Spinner
+.spinner-container {
+  display: flex;
+  justify-content: center;
+}
 
+// Alerts
 .alert {
 
   button {

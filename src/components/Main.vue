@@ -13,7 +13,12 @@
           @dismissed="dismissCountDown=0"
           @dismiss-count-down="countDownChanged"
           variant="success">{{ alertMessage }}</b-alert>
-        <task-list :tasks="appData.tasks" @updatetasklist="updatetasklist"></task-list>
+          <div class="spinner-container">
+            <b-spinner v-if="this.loading"
+              label="Loading...">
+            </b-spinner>
+            <task-list v-else :tasks="appData.tasks" @updatetasklist="updatetasklist"></task-list>
+          </div>
     </div>
   </div>
 </template>
@@ -33,11 +38,13 @@
         alertVariant: '',
         dismissSecs: 5,
         dismissCountDown: 0,
+        loading: false,
         view: this.$root.view
       }
     },
     methods: {
       updatetasklist(message) {
+        this.loading = true;
         axios.get('http://localhost:4000/api/task')
           .then((response) => {
             this.appData.tasks = response.data;
@@ -47,6 +54,7 @@
           .catch((error) => {
             console.log("Error: " + error);
           });
+          this.loading = false;
       },
       viewtoggled() {
         if(this.view === "default") {

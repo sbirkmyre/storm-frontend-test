@@ -5,7 +5,6 @@
       v-else v-for="(task) in tasks"
       :key="tasks.id"
       :task="task"
-      @updatetasklist="updatetasklist"
       @checktask="checktask"
       @showdeletemodal="showdeletemodal"
       ></task>
@@ -13,7 +12,7 @@
     <b-modal id="delete-modal" title="Delete task?" v-model="modalShow">
       <p>Would you like to delete this task?</p>
       <template v-slot:modal-footer="{ cancel, remove }">
-        <button @click="hideDeletemodal">
+        <button @click="hideDeleteModal">
           Cancel
         </button>
         <button @click="deleteTask">
@@ -42,26 +41,35 @@
       tasks: {}
     },
     methods: {
-      updatetasklist(message) {
-        this.$emit('updatetasklist', message);
-      },
-      checktask(taskID, taskTitle) {
-        let alert = '';
-        axios.patch('http://localhost:4000/api/task/' + taskID)
-          .then((response) => {
-            alert = 'Task \"' + this.taskTitle + '\" marked as done!';
-            this.$emit('updatetasklist', alert);
-          })
-          .catch((error) => {
-            console.log("Error: " + error);
-          });
+      checktask(taskID, taskTitle, taskIsDone) {
+      let alert = '';
+        if (taskIsDone === "false") {
+          axios.patch('http://localhost:4000/api/task/' + taskID, {'isDone':"true"})
+            .then((response) => {
+              alert = 'Task \"' + taskTitle + '\" marked as done!';
+              this.$emit('updatetasklist', alert);
+            })
+            .catch((error) => {
+              console.log("Error: " + error);
+            });
+        }
+        else {
+          axios.patch('http://localhost:4000/api/task/' + taskID, {'isDone':"false"})
+            .then((response) => {
+              alert = 'Task \"' + taskTitle + '\" marked as still to be done!';
+              this.$emit('updatetasklist', alert);
+            })
+            .catch((error) => {
+              console.log("Error: " + error);
+            });
+        }
       },
       showdeletemodal(taskID, taskTitle) {
         this.modalShow = true;
         this.deletedTaskId = taskID;
         this.deletedTaskTitle = taskTitle;
       },
-      hideDeletemodal() {
+      hideDeleteModal() {
         this.modalShow = false;
       },
       deleteTask() {
