@@ -1,23 +1,25 @@
 <template>
   <div class="app">
-    <my-header @viewtoggled="viewtoggled"></my-header>
+    <my-header @addtaskformtoggled="addtaskformtoggled"></my-header>
     <div class="main">
-        <new-task-form
+        <add-task-form
           v-if="(this.view === 'add-task')"
-          @discardtask="discardtask"
+          @addtaskformtoggled="addtaskformtoggled"
           @updatetasklist="updatetasklist">
-        </new-task-form>
+        </add-task-form>
         <b-alert
-          :show="dismissCountDown"
+          :show="alert.dismissCountDown"
           dismissible
-          @dismissed="dismissCountDown=0"
+          @dismissed="alert.dismissCountDown=0"
           @dismiss-count-down="countDownChanged"
-          variant="success">{{ alertMessage }}</b-alert>
+          variant="success">{{ alert.message }}</b-alert>
           <div class="spinner-container">
-            <b-spinner v-if="this.loading"
+            <task-list v-if="!($root.loading)" :tasks="$root.tasks"
+              @updatetasklist="updatetasklist">
+            </task-list>
+            <b-spinner v-else
               label="Loading...">
             </b-spinner>
-            <task-list v-else :tasks="appData.tasks" @updatetasklist="updatetasklist"></task-list>
           </div>
     </div>
   </div>
@@ -25,7 +27,7 @@
 
 <script>
 	import MyHeader from './myHeader.vue';
-	import NewTaskForm from './newTaskForm.vue'
+	import AddTaskForm from './addTaskForm.vue'
 	import TaskList from './taskList.vue';
   import axios from 'axios';
 
@@ -33,50 +35,46 @@
     name: "Main",
 		data() {
       return {
-        appData: this.$root.appData,
-        alertMessage: '',
-        alertVariant: '',
-        dismissSecs: 5,
-        dismissCountDown: 0,
-        loading: false,
-        view: this.$root.view
+        alert: {
+          message: '',
+          dismissSecs: 5,
+          dismissCountDown: 0
+        },
+        view: "default"
       }
     },
     methods: {
       updatetasklist(message) {
-        this.loading = true;
+        this.alert.message = '';
         axios.get('http://localhost:4000/api/task')
           .then((response) => {
-            this.appData.tasks = response.data;
-            this.alertMessage = message;
-            this.dismissCountDown = 5;
+            this.$root.tasks = response.data;
+            this.alert.message = message;
+            this.alert.dismissCountDown = 5;
           })
           .catch((error) => {
             console.log("Error: " + error);
           });
-          this.loading = false;
       },
-      viewtoggled() {
+      addtaskformtoggled() {
         if(this.view === "default") {
           this.view = "add-task";
         }
-      },
-      discardtask() {
-        if(this.view === "add-task") {
+        else {
           this.view = "default";
         }
       },
       countDownChanged(dismissCountDown) {
-        this.dismissCountDown = dismissCountDown
+        this.alert.dismissCountDown = dismissCountDown
       },
       showAlert() {
-        this.dismissCountDown = this.dismissSecs
+        this.alert.dismissCountDown = this.alert.dismissSecs
       }
     },
     components: {
 			'my-header': MyHeader,
 			'task-list': TaskList,
-			'new-task-form': NewTaskForm
+			'add-task-form': AddTaskForm
 		}
   };
 </script>

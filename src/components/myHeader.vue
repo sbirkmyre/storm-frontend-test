@@ -2,7 +2,7 @@
   <div class="header">
     <h1>Todo list</h1>
     <button
-      @click="toggleView">
+      @click="addTaskFormToggle">
         + Add task
     </button>
   </div>
@@ -12,8 +12,8 @@
 	export default {
     name: "MyHeader",
     methods: {
-      toggleView() {
-        this.$emit('viewtoggled');
+      addTaskFormToggle() {
+        this.$emit('addtaskformtoggled');
       }
     }
   };

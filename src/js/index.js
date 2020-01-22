@@ -10,16 +10,16 @@ new Vue({
   render: (createEl) => createEl(Main),
   data() {
     return {
-      appData: {
-        tasks: {}
-      },
-      view: "default"
+      tasks: {},
+      loading: false
     }
   },
   created () {
     axios.get('http://localhost:4000/api/task')
       .then((response) => {
-        this.appData.tasks = response.data;
+        this.loading = true;
+        this.tasks = response.data;
+        this.loading = false;
       })
       .catch((error) => {
         console.log("Error: " + error);

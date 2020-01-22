@@ -7,8 +7,8 @@
       v-model="task.isDone"
       true-value="true"
 			false-value="false"
-      @click="updateTask"
-      @keyup.enter="updateTask">
+      @click="taskIsDoneStatusChange"
+      @keyup.enter="taskIsDoneStatusChange">
     {{ task.title }}
     <button @click="showDeleteModal">
       Delete
@@ -23,8 +23,8 @@
         task: {}
     },
     methods: {
-      updateTask() {
-        this.$emit('checktask', this.task.id, this.task.title, this.task.isDone);
+      taskIsDoneStatusChange() {
+        this.$emit('taskisdonestatuschange', this.task.id, this.task.title, this.task.isDone);
       },
       showDeleteModal() {
         this.$emit('showdeletemodal', this.task.id, this.task.title);

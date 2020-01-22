@@ -1,5 +1,5 @@
 <template>
-  <div class="new-task-form">
+  <div class="add-task-form">
     <h2>Add a new task</h2>
     <div class="form row">
       <div class="group col-sm-6">
@@ -72,7 +72,7 @@
           axios.post('http://localhost:4000/api/task', {'title':this.newTask.title, 'importance':this.newTask.importance})
             .then((response) => {
               this.$emit('updatetasklist', alert);
-              this.$emit('discardtask');
+              this.$emit('addtaskformtoggled');
             })
             .catch((error) => {
               console.log("Error: " + error);
@@ -85,7 +85,7 @@
         }
       },
       discardTask() {
-        this.$emit('discardtask');
+        this.$emit('addtaskformtoggled');
       }
     }
   };

@@ -5,7 +5,7 @@
       v-else v-for="(task) in tasks"
       :key="tasks.id"
       :task="task"
-      @checktask="checktask"
+      @taskisdonestatuschange="taskisdonestatuschange"
       @showdeletemodal="showdeletemodal"
       ></task>
 
@@ -33,20 +33,22 @@
       return {
         noTasksMessage: 'You don\'t have any tasks. Why don\'t you add one using the \"Add task\" button?',
         modalShow: false,
-        deletedTaskId: '',
-        deletedTaskTitle: ''
+        taskToBeDeleted: {
+          id: '',
+          title: ''
+        }
       }
     },
     props: {
       tasks: {}
     },
     methods: {
-      checktask(taskID, taskTitle, taskIsDone) {
-      let alert = '';
-        if (taskIsDone === "false") {
-          axios.patch('http://localhost:4000/api/task/' + taskID, {'isDone':"true"})
+      taskisdonestatuschange(id, title, isDone) {
+        let alert = '';
+        if (isDone === "false") {
+          axios.patch('http://localhost:4000/api/task/' + id, {'isDone':"true"})
             .then((response) => {
-              alert = 'Task \"' + taskTitle + '\" marked as done!';
+              alert = 'Task \"' + title + '\" marked as done!';
               this.$emit('updatetasklist', alert);
             })
             .catch((error) => {
@@ -54,9 +56,9 @@
             });
         }
         else {
-          axios.patch('http://localhost:4000/api/task/' + taskID, {'isDone':"false"})
+          axios.patch('http://localhost:4000/api/task/' + id, {'isDone':"false"})
             .then((response) => {
-              alert = 'Task \"' + taskTitle + '\" marked as still to be done!';
+              alert = 'Task \"' + title + '\" marked as still to be done!';
               this.$emit('updatetasklist', alert);
             })
             .catch((error) => {
@@ -66,17 +68,17 @@
       },
       showdeletemodal(taskID, taskTitle) {
         this.modalShow = true;
-        this.deletedTaskId = taskID;
-        this.deletedTaskTitle = taskTitle;
+        this.taskToBeDeleted.id = taskID;
+        this.taskToBeDeleted.title = taskTitle;
       },
       hideDeleteModal() {
         this.modalShow = false;
       },
       deleteTask() {
         let alert = '';
-        axios.delete('http://localhost:4000/api/task/' + this.deletedTaskId)
+        axios.delete('http://localhost:4000/api/task/' + this.taskToBeDeleted.id)
           .then((response) => {
-            alert = 'Task \"' + this.deletedTaskTitle + '\" deleted successfully';
+            alert = 'Task \"' + this.taskToBeDeleted.title + '\" deleted successfully';
             this.$emit('updatetasklist', alert);
           })
           .catch((error) => {
