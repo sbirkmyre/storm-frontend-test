@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" role="banner">
     <h1>Todo list</h1>
     <button
       type="button"

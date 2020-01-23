@@ -1,5 +1,5 @@
 <template>
-  <div class="add-task-form">
+  <div class="add-task-form" role="form">
     <h2>Add a new task</h2>
     <div class="form-errors">
       <p v-if="(errors.length !== 0)">Errors:</p>
@@ -12,6 +12,7 @@
         <label for="task-title">Title:*</label>
         <input
           id="task-title"
+          aria-required="true"
           type="text"
           placeholder="Title"
           v-model="newTask.title">
@@ -20,6 +21,7 @@
         <label for="task-importance">Importance:*</label>
         <select
           id="task-importance"
+          aria-required="true"
           v-model="newTask.importance">
           <option disabled value="">Please select one</option>
           <option value="0">0 (High)</option>

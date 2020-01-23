@@ -1,7 +1,7 @@
 <template>
-  <div class="app">
+  <div class="app" role="application">
     <my-header @addtaskformtoggled="addtaskformtoggled"></my-header>
-    <div class="main">
+    <div class="main" role="main">
         <add-task-form
           v-if="(this.view === 'add-task')"
           @addtaskformtoggled="addtaskformtoggled"
@@ -13,7 +13,7 @@
           @dismissed="alert.dismissCountDown=0"
           @dismiss-count-down="countDownChanged"
           variant="success">{{ alert.message }}</b-alert>
-          <div class="spinner-container">
+          <div class="spinner-container"role="content">
             <task-list v-if="!($root.loading)" :tasks="$root.tasks"
               @updatetasklist="updatetasklist">
             </task-list>
