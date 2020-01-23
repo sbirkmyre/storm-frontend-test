@@ -45,10 +45,13 @@
     },
     methods: {
       updatetasklist(message) {
+        this.$root.loading = true;
         this.alert.message = '';
+        this.alert.dismissCountDown = 0;
         axios.get('http://localhost:4000/api/task')
           .then((response) => {
             this.$root.tasks = response.data;
+            this.$root.loading = false;
             this.alert.message = message;
             this.alert.dismissCountDown = 5;
           })

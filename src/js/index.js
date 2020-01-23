@@ -15,9 +15,9 @@ new Vue({
     }
   },
   created () {
+    this.loading = true;
     axios.get('http://localhost:4000/api/task')
       .then((response) => {
-        this.loading = true;
         this.tasks = response.data;
         this.loading = false;
       })
