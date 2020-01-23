@@ -2,6 +2,8 @@
   <div class="header">
     <h1>Todo list</h1>
     <button
+      role="button"
+      type="button"
       @click="addTaskFormToggle">
         + Add task
     </button>

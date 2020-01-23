@@ -5,17 +5,23 @@
               'low-priority': task.importance === 2 }">
     <label for="isDone">
       <input type="checkbox"
+        title="Task completion status"
         name="isDone"
+        role="checkbox"
         v-model="task.isDone"
         true-value="true"
   			false-value="false"
+        aria-checked="false"
         @click="taskIsDoneStatusChange"
         @keyup.enter="taskIsDoneStatusChange">
       {{ task.title }}
     </label>
-    <button @click="showDeleteModal">
+    <button
+      role="button"
+      type="button"
+      @click="showDeleteModal">
       Delete
-    </button>
+    </button>    
   </div>
 </template>
 

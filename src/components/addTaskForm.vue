@@ -4,11 +4,16 @@
     <div class="form row">
       <div class="group col-sm-6">
         <label for="title">Title:</label>
-        <input v-model="newTask.title" type="text" name="title" placeholder="Title">
+        <input
+          type="text"
+          title="Task title"
+          placeholder="Title"
+          v-model="newTask.title">
       </div>
       <div class="group col-sm-6">
         <label for="importance">Importance:</label>
-        <select name="importance"
+        <select
+          title="Task importance"
           v-model="newTask.importance">
           <option disabled value="">Please select one</option>
           <option value="0">0 (High)</option>
@@ -24,17 +29,29 @@
       </ul>
     </div>
     <div class="action">
-      <button v-b-modal.discard-modal type="button">Cancel</button>
-      <button type="button" @click="addTask">Add Task</button>
+      <button
+        role="button"
+        type="button"
+        v-b-modal.discard-modal>Cancel</button>
+      <button
+        role="button"
+        type="button"
+        @click="addTask">Add Task</button>
     </div>
 
     <b-modal id="discard-modal" title="Discard task?">
       <p>Would you like to discard this task?</p>
       <template v-slot:modal-footer="{ cancel, discard }">
-        <button @click="$bvModal.hide('discard-modal')">
+        <button
+          role="button"
+          type="button"
+          @click="$bvModal.hide('discard-modal')">
           Cancel
         </button>
-        <button @click="discardTask">
+        <button
+          role="button"
+          type="button"
+          @click="discardTask">
           Discard task
         </button>
       </template>

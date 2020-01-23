@@ -12,10 +12,16 @@
     <b-modal id="delete-modal" title="Delete task?" v-model="modalShow">
       <p>Would you like to delete this task?</p>
       <template v-slot:modal-footer="{ cancel, remove }">
-        <button @click="hideDeleteModal">
+        <button
+          role="button"
+          type="button"
+          @click="hideDeleteModal">
           Cancel
         </button>
-        <button @click="deleteTask">
+        <button
+          role="button"
+          type="button"
+          @click="deleteTask">
           Delete task
         </button>
       </template>
