@@ -8,8 +8,8 @@
           @updatetasklist="updatetasklist">
         </add-task-form>
         <b-alert
+          fade
           :show="alert.dismissCountDown"
-          dismissible
           @dismissed="alert.dismissCountDown=0"
           @dismiss-count-down="countDownChanged"
           variant="success">{{ alert.message }}</b-alert>
@@ -48,6 +48,7 @@
         this.$root.loading = true;
         this.alert.message = '';
         this.alert.dismissCountDown = 0;
+
         axios.get('http://localhost:4000/api/task')
           .then((response) => {
             this.$root.tasks = response.data;

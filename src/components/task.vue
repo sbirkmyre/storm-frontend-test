@@ -3,11 +3,8 @@
     :class="{ 'high-priority': task.importance === 0,
               'medium-priority': task.importance === 1,
               'low-priority': task.importance === 2 }">
-    <label for="isDone">
-      <input type="checkbox"
-        title="Task completion status"
-        name="isDone"
-        role="checkbox"
+      <input
+        type="checkbox"
         v-model="task.isDone"
         true-value="true"
   			false-value="false"
@@ -15,13 +12,11 @@
         @click="taskIsDoneStatusChange"
         @keyup.enter="taskIsDoneStatusChange">
       {{ task.title }}
-    </label>
     <button
-      role="button"
       type="button"
       @click="showDeleteModal">
       Delete
-    </button>    
+    </button>
   </div>
 </template>
 

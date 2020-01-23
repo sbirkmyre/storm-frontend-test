@@ -13,13 +13,11 @@
       <p>Would you like to delete this task?</p>
       <template v-slot:modal-footer="{ cancel, remove }">
         <button
-          role="button"
           type="button"
           @click="hideDeleteModal">
           Cancel
         </button>
         <button
-          role="button"
           type="button"
           @click="deleteTask">
           Delete task

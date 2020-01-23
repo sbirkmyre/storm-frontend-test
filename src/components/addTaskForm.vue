@@ -1,19 +1,25 @@
 <template>
   <div class="add-task-form">
     <h2>Add a new task</h2>
+    <div class="form-errors">
+      <p v-if="(errors.length !== 0)">Errors:</p>
+      <ul>
+        <li v-for="error in errors">{{ error }}</li>
+      </ul>
+    </div>
     <div class="form row">
       <div class="group col-sm-6">
-        <label for="title">Title:</label>
+        <label for="task-title">Title:*</label>
         <input
+          id="task-title"
           type="text"
-          title="Task title"
           placeholder="Title"
           v-model="newTask.title">
       </div>
       <div class="group col-sm-6">
-        <label for="importance">Importance:</label>
+        <label for="task-importance">Importance:*</label>
         <select
-          title="Task importance"
+          id="task-importance"
           v-model="newTask.importance">
           <option disabled value="">Please select one</option>
           <option value="0">0 (High)</option>
@@ -22,19 +28,11 @@
         </select>
       </div>
     </div>
-    <div class="form-errors">
-      <p v-if="(errors.length !== 0)">Errors:</p>
-      <ul>
-        <li v-for="error in errors">{{ error }}</li>
-      </ul>
-    </div>
     <div class="action">
       <button
-        role="button"
         type="button"
         v-b-modal.discard-modal>Cancel</button>
       <button
-        role="button"
         type="button"
         @click="addTask">Add Task</button>
     </div>
@@ -43,13 +41,11 @@
       <p>Would you like to discard this task?</p>
       <template v-slot:modal-footer="{ cancel, discard }">
         <button
-          role="button"
           type="button"
           @click="$bvModal.hide('discard-modal')">
           Cancel
         </button>
         <button
-          role="button"
           type="button"
           @click="discardTask">
           Discard task
@@ -78,7 +74,7 @@
         this.errors= [];
 
         if(this.newTask.title === '') {
-          this.errors.push("Please add a task title.");
+          this.errors.push("Please specify a task title.");
         }
         if(this.newTask.importance === '') {
           this.errors.push("Please specify a task importance.");
