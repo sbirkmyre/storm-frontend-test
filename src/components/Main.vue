@@ -1,8 +1,9 @@
 <template>
   <div class="app" role="application">
     <my-header @addtaskformtoggled="addtaskformtoggled"></my-header>
-    <div class="main" role="main">
+    <div class="main" role="main" tabindex="0" aria-label="Application main">
         <add-task-form
+          ref="addTaskForm"
           v-if="(this.view === 'add-task')"
           @addtaskformtoggled="addtaskformtoggled"
           @updatetasklist="updatetasklist">
@@ -63,6 +64,9 @@
       addtaskformtoggled() {
         if(this.view === "default") {
           this.view = "add-task";
+          this.$nextTick(function(){
+            this.$refs.addTaskForm.$el.focus();
+          });
         }
         else {
           this.view = "default";

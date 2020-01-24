@@ -1,9 +1,9 @@
 <template>
-  <div class="add-task-form" role="form">
+  <div class="add-task-form" role="form" aria-label="Add task form" tabindex="0">
     <h2>Add a new task</h2>
-    <div class="form-errors">
-      <p v-if="(errors.length !== 0)">Errors:</p>
-      <ul>
+    <div v-if="(errors.length !== 0)" class="form-errors" ref="errors" aria-label="Errors from form submission" tabindex="0">
+      <p tabindex="0">Please correct the following errors:</p>
+      <ul tabindex="0">
         <li v-for="error in errors">{{ error }}</li>
       </ul>
     </div>
@@ -33,24 +33,37 @@
     <div class="action">
       <button
         type="button"
-        v-b-modal.discard-modal>Cancel</button>
+        @click="addTask"
+        aria-label="Add new task">Add Task</button>
       <button
         type="button"
-        @click="addTask">Add Task</button>
+        v-b-modal.discard-modal
+        aria-label="Discard new task">Cancel</button>
     </div>
 
-    <b-modal id="discard-modal" title="Discard task?">
-      <p>Would you like to discard this task?</p>
+    <b-modal id="discard-modal" centered>
+      <template v-slot:modal-header="{ close }">
+        <h2>Discard task?</h2>
+        <b-button @click="close()" aria-label="Close discard task model and return to form">
+          x
+        </b-button>
+      </template>
+
+      <template v-slot:default="{ hide }">
+        <p>Would you like to discard this task?</p>
+      </template>
+
       <template v-slot:modal-footer="{ cancel, discard }">
-        <button
-          type="button"
-          @click="$bvModal.hide('discard-modal')">
-          Cancel
-        </button>
         <button
           type="button"
           @click="discardTask">
           Discard task
+        </button>
+        <button
+          type="button"
+          @click="$bvModal.hide('discard-modal')"
+          aria-label="Cancel discarding of task and return to form">
+          Cancel
         </button>
       </template>
     </b-modal>
@@ -76,10 +89,16 @@
         this.errors= [];
 
         if(this.newTask.title === '') {
-          this.errors.push("Please specify a task title.");
+          this.errors.push("Task title is required.");
         }
         if(this.newTask.importance === '') {
-          this.errors.push("Please specify a task importance.");
+          this.errors.push("Ttask importance is required.");
+        }
+
+        if(this.errors.length !== '0') {
+          this.$nextTick(function(){
+            this.$refs.errors.focus();
+          });
         }
 
         if((this.newTask.title !== '') && (this.newTask.importance !== '')){

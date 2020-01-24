@@ -14,7 +14,6 @@ h1, h2 {
 
 p {
   margin: 0;
-  padding: 1rem;
 }
 
 input[type="text"], select {
@@ -61,7 +60,9 @@ button {
   button {
 
     &:first-child {
-      margin-right: 0.5em;
+      margin-left: 0.5em;
+
+      order: 2;
     }
   }
 }
@@ -99,6 +100,8 @@ button {
   input[type="checkbox"] {
     margin: 0 0.7em 0 0.5em;
 
+    order: -1;
+
     transform: scale(1.3);
   }
 
@@ -115,6 +118,16 @@ button {
   &.low-priority {
     background-color: #EBF6FC;
     border-color: #B6E6F2;
+  }
+
+  .title {
+    font-size: 18px;
+    text-decoration: underline;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -202,11 +215,37 @@ button {
 .modal-header {
   align-items: center;
 
-  .close {
-    margin: 0;
-    padding: 0.5em .75em;
+  h2 {
+    font-size: 24px;
+  }
 
-    font-size: 16px;
-    font-weight: 300;
+  .btn {
+    &.btn-secondary,
+    &.btn-secondary:active {      
+      font-size: 16px;
+      font-weight: 300;
+
+      margin: 0;
+      padding: 0.25em .75em;
+
+      color: #000;
+      background-color: #fff;
+      border: 1px #8C8C8C solid;
+      border-radius: 20px;
+    }
+  }
+}
+
+.modal {
+  p {
+    padding: 1rem;
+  } 
+}
+
+.modal-footer {
+  button {
+    &:first-child {
+      order: 2;
+    }
   }
 }

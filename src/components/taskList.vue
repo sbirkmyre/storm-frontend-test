@@ -1,5 +1,5 @@
 <template>
-  <div class="task-list">
+  <div class="task-list" tabindex="0" aria-label="Task list">
     <p v-if="(tasks.length === 0)">{{ noTasksMessage }}</p>
     <task
       v-else v-for="(task) in tasks"
@@ -7,20 +7,31 @@
       :task="task"
       @taskisdonestatuschange="taskisdonestatuschange"
       @showdeletemodal="showdeletemodal"
-      ></task>
+    ></task>
 
-    <b-modal id="delete-modal" title="Delete task?" v-model="modalShow">
-      <p>Would you like to delete this task?</p>
+    <b-modal id="delete-modal" centered v-model="modalShow">
+      <template v-slot:modal-header="{ close }">
+        <h2>Delete task?</h2>
+        <b-button @click="close()" aria-label="Close delete task modal and return to the task">
+          x
+        </b-button>
+      </template>
+
+      <template v-slot:default="{ hide }" tabindex="0">
+        <p>Would you like to delete this task?</p>
+      </template>
+
       <template v-slot:modal-footer="{ cancel, remove }">
-        <button
-          type="button"
-          @click="hideDeleteModal">
-          Cancel
-        </button>
         <button
           type="button"
           @click="deleteTask">
           Delete task
+        </button>
+        <button
+          type="button"
+          @click="hideDeleteModal"
+          aria-label="Cancel deletion of task and close delete task modal and return to the task">
+          Cancel
         </button>
       </template>
     </b-modal>
@@ -77,6 +88,8 @@
       },
       hideDeleteModal() {
         this.modalShow = false;
+        this.taskToBeDeleted.id = '';
+        this.taskToBeDeleted.title = '';
       },
       deleteTask() {
         let alert = '';
