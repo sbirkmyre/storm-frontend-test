@@ -10,7 +10,7 @@
     >
       <p tabindex="0">Please correct the following errors:</p>
       <ul tabindex="0">
-        <li v-for="error in errors">{{ error }}</li>
+        <li v-for="(error, id) in errors" :key="id">{{ error }}</li>
       </ul>
     </div>
     <div class="form row">
@@ -83,16 +83,13 @@
           this.errors.push("Task title is required.");
         }
         if (this.newTask.importance === "") {
-          this.errors.push("Ttask importance is required.");
-        }
-
-        if (this.errors.length !== "0") {
-          this.$nextTick(function() {
-            this.$refs.errors.focus();
-          });
+          this.errors.push("Task importance is required.");
         }
 
         if (this.newTask.title !== "" && this.newTask.importance !== "") {
+          document.activeElement.blur();
+          let alert = 'Task "' + this.newTask.title + '" added successfully';
+
           axios
             .post("http://localhost:4000/api/task", {
               title: this.newTask.title,
@@ -106,10 +103,11 @@
               console.log("Error: " + error);
             });
 
-          let alert = 'Task "' + this.newTask.title + '" added successfully';
-
-          this.newTask.title = "";
-          this.newTask.importance = "";
+        }
+        else {
+          this.$nextTick(function() {
+            this.$refs.errors.focus();
+          });
         }
       },
       discardTask() {

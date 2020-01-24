@@ -3,11 +3,11 @@
     <p v-if="(tasks.length === 0)">{{ noTasksMessage }}</p>
     <task
       v-else
-      v-for="(task) in tasks"
-      :key="tasks.id"
+      v-for="(task, id) in tasks"
+      :key="id"
       :task="task"
-      @taskisdonestatuschange="taskisdonestatuschange"
-      @showdeletemodal="showdeletemodal"
+      @taskisdonestatuschange="taskIsDoneStatusChange"
+      @showdeletemodal="showDeleteModal"
     ></task>
 
     <b-modal id="delete-modal" centered v-model="modalShow">
@@ -56,7 +56,7 @@
       };
     },
     methods: {
-      taskisdonestatuschange(id, title, isDone) {
+      taskIsDoneStatusChange(id, title, isDone) {
         let alert = "";
         if (isDone === "false") {
           axios
@@ -80,7 +80,7 @@
             });
         }
       },
-      showdeletemodal(taskID, taskTitle) {
+      showDeleteModal(taskID, taskTitle) {
         this.modalShow = true;
         this.taskToBeDeleted.id = taskID;
         this.taskToBeDeleted.title = taskTitle;
